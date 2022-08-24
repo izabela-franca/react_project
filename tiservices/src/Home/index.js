@@ -10,7 +10,7 @@ export const Home = () => {
                         <h1>Página Inicial</h1>
                     </div>
                     <div className='p-2'>
-                        <Link to = "/listar-clientes" className='m-auto btn btn-outline-info btn-sm'>clientes</Link>
+                        <Link to = "/listar-clientes" className='m-auto btn btn-outline-info btn-sm'>Clientes</Link>
                     </div>
                 </div>
             </Container>

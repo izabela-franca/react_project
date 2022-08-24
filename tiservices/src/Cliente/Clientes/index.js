@@ -46,7 +46,7 @@ export const Clientes = () => {
           </div>
           <div className="p-2 m-auto">
             <Link to="/novo-cliente" className="btn btn-outline-info btn-sm">
-              Inserir
+              Novo Cliente
             </Link>
           </div>
         </div>
