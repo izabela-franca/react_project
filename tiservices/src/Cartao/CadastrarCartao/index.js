@@ -4,21 +4,19 @@ import { useState } from "react";
 import { axios } from "axios";
 import { api } from "../../config";
 
-export const CadastrarCliente = () => {
+export const CadastrarCartao = () => {
   //Definindo objeto
-  const [cliente, setCliente] = useState({
-    nome: "",
-    cidade: "",
-    uf: "",
-    nascimento: "",
+  const [cartao, setCartao] = useState({
+    dataCartao: "",
+    validade: "",
   });
 
   //Dados a serem repassados ao novo cliente
   const valorInput = (evento) =>
-    setCliente({ ...cliente, [evento.target.name]: evento.target.value });
+    setCartao({ ...cartao, [evento.target.name]: evento.target.value });
 
   //Função para inserção de novo cliente
-  const cadCliente = async evento => {
+  const cadCartao = async evento => {
     evento.preventDefault(); //proteção dos dados do cliente
 
     //Cabeçalho representando os dados do conteúdo da página
@@ -27,7 +25,7 @@ export const CadastrarCliente = () => {
     };
 
     await axios
-      .post(api + "/clientes", cliente, { headers }) 
+      .post(api + "/cartoes", cartao, { headers }) 
       .then((response) => {
         console.log(response.data.message);
       })
@@ -41,50 +39,30 @@ export const CadastrarCliente = () => {
       <Container>
         <div className="d-flex">
           <div className="m-auto p-2">
-            <h1>Cadastrar Cliente</h1>
+            <h1>Cadastrar Cartão</h1>
           </div>
           <div className="p-2">
             <Link
-              to="/listar-clientes"
+              to="/listar-cartoes"
               className="m-auto btn btn-outline-info btn-sm"
             >
-              Clientes
+              Cartões
             </Link>
           </div>
         </div>
-        <Form className="p-2" onSubmit={cadCliente}>
+        <Form className="p-2" onSubmit={cadCartao}>
           <FormGroup className="p-2">
-            <Label>Nome</Label>
+            <Label>Data do Cartão</Label>
             <Input
-              name="nome"
-              //placeholder="Digite o nome do cliente"
+              name="dataCartao"
               type="text"
               onChange={valorInput}
             />
           </FormGroup>
           <FormGroup>
-            <Label>Cidade</Label>
+            <Label>Validade</Label>
             <Input
-              name="cidade"
-              //placeholder="Digite a cidade"
-              type="text"
-              onChange={valorInput}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label>UF</Label>
-            <Input
-              name="uf"
-              //placeholder="Digite o UF"
-              type="text"
-              onChange={valorInput}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label>Nascimento</Label>
-            <Input
-              name="nascimento"
-              //placeholder="Digite a data de nascimento do cliente"
+              name="validade"
               type="text"
               onChange={valorInput}
             />

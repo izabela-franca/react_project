@@ -4,21 +4,19 @@ import { useState } from "react";
 import { axios } from "axios";
 import { api } from "../../config";
 
-export const CadastrarCliente = () => {
+export const CadastrarPromocao = () => {
   //Definindo objeto
-  const [cliente, setCliente] = useState({
+  const [promocao, setPromocao] = useState({
     nome: "",
-    cidade: "",
-    uf: "",
-    nascimento: "",
+    descrição: "",
+    validade: ""
   });
 
-  //Dados a serem repassados ao novo cliente
-  const valorInput = (evento) =>
-    setCliente({ ...cliente, [evento.target.name]: evento.target.value });
 
-  //Função para inserção de novo cliente
-  const cadCliente = async evento => {
+  const valorInput = (evento) =>
+    setPromocao({ ...promocao, [evento.target.name]: evento.target.value });
+
+  const cadPromocao = async evento => {
     evento.preventDefault(); //proteção dos dados do cliente
 
     //Cabeçalho representando os dados do conteúdo da página
@@ -27,7 +25,7 @@ export const CadastrarCliente = () => {
     };
 
     await axios
-      .post(api + "/clientes", cliente, { headers }) 
+      .post(api + "/promocoes", promocao, { headers }) 
       .then((response) => {
         console.log(response.data.message);
       })
@@ -41,50 +39,38 @@ export const CadastrarCliente = () => {
       <Container>
         <div className="d-flex">
           <div className="m-auto p-2">
-            <h1>Cadastrar Cliente</h1>
+            <h1>Cadastrar Promoção</h1>
           </div>
           <div className="p-2">
             <Link
-              to="/listar-clientes"
+              to="/listar-promocoes"
               className="m-auto btn btn-outline-info btn-sm"
             >
-              Clientes
+              Promoções
             </Link>
           </div>
         </div>
-        <Form className="p-2" onSubmit={cadCliente}>
+        <Form className="p-2" onSubmit={cadPromocao}>
           <FormGroup className="p-2">
-            <Label>Nome</Label>
+            <Label>Nome da Promoção</Label>
             <Input
               name="nome"
-              //placeholder="Digite o nome do cliente"
               type="text"
               onChange={valorInput}
             />
           </FormGroup>
           <FormGroup>
-            <Label>Cidade</Label>
+            <Label>Descrição</Label>
             <Input
-              name="cidade"
-              //placeholder="Digite a cidade"
+              name="descricao"
               type="text"
               onChange={valorInput}
             />
           </FormGroup>
           <FormGroup>
-            <Label>UF</Label>
+            <Label>Validade</Label>
             <Input
-              name="uf"
-              //placeholder="Digite o UF"
-              type="text"
-              onChange={valorInput}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label>Nascimento</Label>
-            <Input
-              name="nascimento"
-              //placeholder="Digite a data de nascimento do cliente"
+              name="validade"
               type="text"
               onChange={valorInput}
             />
