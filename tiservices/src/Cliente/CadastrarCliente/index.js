@@ -18,7 +18,7 @@ export const CadastrarCliente = () => {
     setCliente({ ...cliente, [evento.target.name]: evento.target.value });
 
   //Função para inserção de novo cliente
-  const cadCliente = async (evento) => {
+  const cadCliente = async evento => {
     evento.preventDefault(); //proteção dos dados do cliente
 
     //Cabeçalho representando os dados do conteúdo da página
@@ -27,7 +27,7 @@ export const CadastrarCliente = () => {
     };
 
     await axios
-      .post(api + "/cliente", cliente, { headers }) ///POSSIVEL ERRO
+      .post(api + "/clientes", cliente, { headers }) ///POSSIVEL ERRO
       .then((response) => {
         console.log(response.data.message);
       })
@@ -48,7 +48,7 @@ export const CadastrarCliente = () => {
               to="/listar-clientes"
               className="m-auto btn btn-outline-info btn-sm"
             >
-              clientes
+              Clientes
             </Link>
           </div>
         </div>
@@ -90,8 +90,12 @@ export const CadastrarCliente = () => {
             />
           </FormGroup>
           <FormGroup className="d-flex">
-            <Button type="submit" outline color="info">Cadastrar</Button>
-            <Button type="reset" outline color="info">Limpar</Button>
+            <Button type="submit" outline color="info">
+              Cadastrar
+            </Button>
+            <Button type="reset" outline color="info">
+              Limpar
+            </Button>
           </FormGroup>
         </Form>
       </Container>
