@@ -26,6 +26,30 @@ export const Cartoes = () => {
       });
   };
 
+    //Excluindo cartão
+    const delCartao = async (idCartao) => {
+      console.log(idCartao)
+  
+      const headers = {
+        'Content-type' : 'application/json'
+      }
+  
+      await axios.delete(api+"/excluircartao/"+idCartao, 
+      {headers})
+      .then((response) => {
+        console.log(response.data.type);
+        console.log(response.data.message)
+        getCartoes()
+      })
+      .catch(() => {
+        setStatus({
+          type: 'error',
+          message : 'Erro: não foi possível conectar-se a API.'
+        })
+      })
+  
+    }
+
   useEffect(() => {
     getCartoes();
   }, []);
@@ -65,7 +89,9 @@ export const Cartoes = () => {
                 <th scope="row">{cartoes.id}</th>
                 <td>{cartoes.dataCartao}</td>
                 <td>{cartoes.validade}</td>
-                <td><Link to = "/pedidos-clientes" className="btn btn-outline-info btn-sm">Consultar</Link></td>
+                <td>
+                <span className="btn btn-outline-danger btn-sm" onClick={() => delCartao(cartoes.id)}>Excluir</span>
+                </td>
               </tr>
             ))}
           </tbody>

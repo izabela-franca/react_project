@@ -26,6 +26,30 @@ export const Promocoes = () => {
       });
   };
 
+    //Excluindo promoção
+    const delPromocao = async (idpromocao) => {
+      console.log(idpromocao)
+  
+      const headers = {
+        'Content-type' : 'application/json'
+      }
+  
+      await axios.delete(api+"/excluircliente/"+idpromocao,
+      {headers})
+      .then((response) => {
+        console.log(response.data.type);
+        console.log(response.data.message)
+        getPromocoes()
+      })
+      .catch(() => {
+        setStatus({
+          type: 'error',
+          message : 'Erro: não foi possível conectar-se a API.'
+        })
+      })
+  
+    }
+
   useEffect(() => {
     getPromocoes();
   }, []);
@@ -67,7 +91,9 @@ export const Promocoes = () => {
                 <td>{promocoes.nome}</td>
                 <td>{promocoes.descricao}</td>
                 <td>{promocoes.validade}</td>
-                <td><Link to = "/pedidos-clientes" className="btn btn-outline-info btn-sm">Consultar</Link></td>
+                <td>
+                    <span className="btn btn-outline-danger btn-sm" onClick={() => delPromocao(promocoes.id)}>Excluir</span>
+                </td>
               </tr>
             ))}
           </tbody>

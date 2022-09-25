@@ -26,6 +26,30 @@ export const Clientes = () => {
       });
   };
 
+  //Excluindo clientes
+  const delCliente = async (idCliente) => {
+    console.log(idCliente)
+
+    const headers = {
+      'Content-type' : 'application/json'
+    }
+
+    await axios.delete(api+"/excluircliente/"+idCliente,
+    {headers})
+    .then((response) => {
+      console.log(response.data.type);
+      console.log(response.data.message)
+      getClientes()
+    })
+    .catch(() => {
+      setStatus({
+        type: 'error',
+        message : 'Erro: não foi possível conectar-se a API.'
+      })
+    })
+
+  }
+
   useEffect(() => {
     getClientes();
   }, []);
@@ -69,7 +93,9 @@ export const Clientes = () => {
                 <td>{clientes.cidade}</td>
                 <td>{clientes.uf}</td>
                 <td>{clientes.nascimento}</td>
-                <td><Link to = "/pedidos-clientes" className="btn btn-outline-info btn-sm">Consultar</Link></td>
+                <td>
+                    <span className="btn btn-outline-danger btn-sm" onClick={() => delCliente(clientes.id)}>Excluir</span>
+                </td>
               </tr>
             ))}
           </tbody>

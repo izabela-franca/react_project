@@ -26,6 +26,31 @@ export const Empresas = () => {
       });
   };
 
+  //Excluindo empresas
+  const delEmpresa = async (idEmpresa) => {
+    console.log(idEmpresa)
+
+    const headers = {
+      'Content-type' : 'application/json'
+    }
+
+    await axios.delete(api+"/excluircliente/"+idEmpresa,
+    {headers})
+    .then((response) => {
+      console.log(response.data.type);
+      console.log(response.data.message)
+      getEmpresas()
+    })
+    .catch(() => {
+      setStatus({
+        type: 'error',
+        message : 'Erro: não foi possível conectar-se a API.'
+      })
+    })
+
+  }
+
+
   useEffect(() => {
     getEmpresas();
   }, []);
@@ -65,7 +90,9 @@ export const Empresas = () => {
                 <th scope="row">{empresas.id}</th>
                 <td>{empresas.nome}</td>
                 <td>{empresas.dataAdesao}</td>
-                <td><Link to = "/pedidos-clientes" className="btn btn-outline-info btn-sm">Consultar</Link></td>
+                <td>
+                <span className="btn btn-outline-danger btn-sm" onClick={() => delEmpresa(empresas.id)}>Excluir</span>
+                </td>
               </tr>
             ))}
           </tbody>
